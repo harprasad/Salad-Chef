@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salad Chef", "Assembly-CSharp.csproj", "{8785C753-66E4-D0E1-CE28-43F4177FBB4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salad Chef", "Assembly-CSharp-Editor.csproj", "{C1CEC327-B512-8BAE-BF49-3E84830FFA78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8785C753-66E4-D0E1-CE28-43F4177FBB4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8785C753-66E4-D0E1-CE28-43F4177FBB4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8785C753-66E4-D0E1-CE28-43F4177FBB4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8785C753-66E4-D0E1-CE28-43F4177FBB4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1CEC327-B512-8BAE-BF49-3E84830FFA78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1CEC327-B512-8BAE-BF49-3E84830FFA78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1CEC327-B512-8BAE-BF49-3E84830FFA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1CEC327-B512-8BAE-BF49-3E84830FFA78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
