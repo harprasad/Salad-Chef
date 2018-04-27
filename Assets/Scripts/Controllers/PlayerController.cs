@@ -12,24 +12,25 @@ public class PlayerController : MonoBehaviour {
 
 	public int PlayerID;
 	public float PlayerSpeed = 2.0f;
-
+	public float TimeLeft = Constants.DEFAULT_TIME_LEFT;
 	public List<GameObject> Basket;
 	public List<GameObject> Container;
 
 	public int PlayerScore;
 
 	private bool canMove = true;
-
+	private float defaultSpeed ;
 	// Use this for initialization
 	void Start () {
 		//Player can carry two objects at max
+		defaultSpeed = PlayerSpeed;
 		Basket = new List<GameObject>(Constants.BASKET_SIZE);
 		Container = new List<GameObject>(Constants.MAX_VEGTABLES_ON_BOARD);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		CheckForTimeOut();
 	}
 
 	/// <summary>
@@ -40,6 +41,12 @@ public class PlayerController : MonoBehaviour {
 	{
 		MovePlayer();
 	}
+	
+
+	
+	/// <summary>
+	/// This function is used for the movement of the player accoriding to input.
+	/// </summary>
 	void MovePlayer()
 	{
 		transform.rotation = Quaternion.Euler(0,0,0);
@@ -129,7 +136,7 @@ public class PlayerController : MonoBehaviour {
 				chopcontroller.Container.Add(veg);
 				Basket.Remove(veg);
 				//disable movemnt for 2 secs
-				StartCoroutine(DisableMovement(2));
+				StartCoroutine(DisableMovement(Constants.CHOPTIME));
 			}
 		}else if(other.gameObject.tag.Equals(Constants.TRASH_TAG)){
 				Container.Clear();
@@ -149,6 +156,13 @@ public class PlayerController : MonoBehaviour {
 				return;
 			}
 			//Drop on customer table
+			CustomerTableController customerTableController = other.gameObject.GetComponent<CustomerTableController>();
+			foreach (var item in Container)
+			{
+				customerTableController.Container.Add(item);
+			}
+			//get feedback for delivery
+			customerTableController.FeedBack(PlayerID);
 		}
 
 	}
@@ -175,11 +189,66 @@ public class PlayerController : MonoBehaviour {
 		PickOrDrop(other);
 	}
 
+	/// <summary>
+	/// Sent when another object enters a trigger collider attached to this
+	/// object (2D physics only).
+	/// </summary>
+	/// <param name="other">The other Collider2D involved in this collision.</param>
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.gameObject.tag.Equals(Constants.POWERUP_TAG)){
+			PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
+			if(powerup.PalyerID == PlayerID){
+				ConsumePowerUp( powerup);
+			}
+		}	
+	}
+
 	IEnumerator DisableMovement(float secs)
 	{
 		canMove = false;
 		yield return new WaitForSeconds(secs);
 		canMove = true;
+	}
+
+	/// <summary>
+	/// This function is used to consume a powerup.
+	/// </summary>
+	/// <param name="powerUp">The Powerup Component of the  powerup script.</param>
+	void ConsumePowerUp(PowerUp powerUp)
+	{
+		switch (powerUp.power)
+		{
+			case Constants.PowerUp.SpeedBooster:
+				StartCoroutine(EnhanceSpeed());
+				break;
+
+			case Constants.PowerUp.TimeBooster:
+				TimeLeft += Constants.TIME_BONUS;
+				break;
+
+			case Constants.PowerUp.ExtraScore:
+				PlayerScore += Constants.SCORE_BONUS;
+			break;
+
+			default:
+			break;
+		}
+	}
+
+	IEnumerator EnhanceSpeed()
+	{
+		PlayerSpeed = PlayerSpeed * Constants.SPPED_BOOST_FACTOR;
+		yield return new WaitForSeconds(Constants.POWEUP_DURATION);
+		PlayerSpeed = defaultSpeed;
+	}
+
+	void CheckForTimeOut()
+	{
+		TimeLeft -= Time.deltaTime;
+		if(TimeLeft <= 0){
+			canMove = false;
+		}
 	}
 
 }

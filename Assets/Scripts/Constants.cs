@@ -12,7 +12,7 @@ public static class Constants  {
 	public const string CUSTOMER_TABLE = "CustomerTable";
 	public const string PICKUP_SPAWN_POINT_TAGS = "SpawnPoints";
 
-	public const string PLAYER_TAG = "Player"
+	public const string PLAYER_TAG = "Player";
 	public const string POWERUP_TAG = "PowerUp";
 	public const float DEFAULT_TIME_LEFT = 120f;
 	public const float POWEUP_DURATION = 8;

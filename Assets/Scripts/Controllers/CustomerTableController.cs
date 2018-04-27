@@ -6,15 +6,15 @@ public class CustomerTableController : MonoBehaviour {
 
 	public List<GameObject> Container;
 	public List<string> RequestedCombination;
-	public GameObject Pickup;
-	GameObject[] PickupPoints;
 	public float WaitTime;
 	public float StartTime;
 	float burnrate = 1;
 	bool delivered = false;
+
+	GameController gameController ;
 	// Use this for initialization
 	void Start () {
-		PickupPoints = GameObject.FindGameObjectsWithTag(Constants.PICKUP_SPAWN_POINT_TAGS);
+		gameController = GameObject.FindGameObjectWithTag(Constants.GAME_CONTROLLER_TAG).GetComponent<GameController>();
 	}
 	
 	// Update is called once per frame
@@ -34,7 +34,7 @@ public class CustomerTableController : MonoBehaviour {
 		}
 		WaitTime -= (Time.deltaTime * burnrate);
 		if(WaitTime <= 0){
-			GameObject[] Players =  GameObject.FindGameObjectsWithTag("Player");
+			GameObject[] Players =  GameObject.FindGameObjectsWithTag(Constants.PLAYER_TAG);
 			foreach (var player in Players)
 			{
 				player.GetComponent<PlayerController>().PlayerScore += Constants.PENALTY_POINTS;
@@ -48,7 +48,7 @@ public class CustomerTableController : MonoBehaviour {
 	/// This function is used to calculate FEEDBACK SCORE incase of 
 	/// Wrong Delivery A Negative score is returned .This function is called by players hence its public
 	/// </summmary>
-	public int FeedBack(){
+	public int FeedBack(int playerID){
 		int count = RequestedCombination.Count;
 		int match = 0 ;
 		foreach (var item in Container)
@@ -61,6 +61,7 @@ public class CustomerTableController : MonoBehaviour {
 		if(count == match  && completionRate > Constants.GOOD_PERCENT){
 			delivered = true;
 			//Spawn Pickups
+			gameController.SpawnPowerUp(playerID);
 			return Constants.REWARD_POINTS;
 		}else if(count == match){
 			delivered = true;

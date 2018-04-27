@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Controllers\ExtraPlateController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\PowerUp.cs" />
      <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
      <Compile Include="Assets\ThirdParty\Gamestrap\TransitionHelper.cs" />
      <Compile Include="Assets\ThirdParty\Gamestrap\UI\Effects\GamestrapEffect.cs" />
