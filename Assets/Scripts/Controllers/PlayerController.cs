@@ -83,6 +83,9 @@ public class PlayerController : MonoBehaviour {
 			GameObject vegClone = Instantiate(other.gameObject,transform.position,Quaternion.identity);
 			Basket.Add(vegClone);
 			vegClone.transform.parent = transform;
+			Vector3 currentPose = vegClone.transform.position ;
+			currentPose.x += Basket.Count ; 
+			vegClone.transform.position = currentPose;
 		}
 		if(other.gameObject.tag.Equals(Constants.CHOPBOARD_TAG)){
 			ChopBoardController chopcontroller = other.gameObject.GetComponent<ChopBoardController>();
@@ -124,7 +127,7 @@ public class PlayerController : MonoBehaviour {
 			//Nothing to drop return
 			return;
 		}
-		GameObject veg = Basket[Basket.Count];
+		GameObject veg = Basket[Basket.Count-1];
 		//else check the colliding object
 		if(other.gameObject.tag.Equals(Constants.CHOPBOARD_TAG)){
 			//remove from basket and add to chopboard

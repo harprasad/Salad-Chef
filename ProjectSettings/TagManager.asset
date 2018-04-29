@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Vegetable
   - PowerUp
+  - CustomerSpawner
+  - SpawnPoints
+  - CustomerTable
+  - Trash
+  - ChopBoard
+  - ExtraPlate
   layers:
   - Default
   - TransparentFX

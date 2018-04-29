@@ -53,9 +53,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Constants.cs" />
      <Compile Include="Assets\Scripts\Controllers\ChopBoardController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\CustomerSpawnner.cs" />
      <Compile Include="Assets\Scripts\Controllers\CustomerTableController.cs" />
      <Compile Include="Assets\Scripts\Controllers\ExtraPlateController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\HUDController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PowerUp.cs" />
      <Compile Include="Assets\Scripts\Controllers\UIController.cs" />

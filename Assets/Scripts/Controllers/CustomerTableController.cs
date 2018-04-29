@@ -11,10 +11,18 @@ public class CustomerTableController : MonoBehaviour {
 	float burnrate = 1;
 	bool delivered = false;
 
+	public GameObject TimeLeft;
+	public Transform[] spawnPoints;
+	public int tableIndex;
 	GameController gameController ;
+	CustomerSpawnner customerSpawnner;
+
+	float deafaultScale;
 	// Use this for initialization
 	void Start () {
 		gameController = GameObject.FindGameObjectWithTag(Constants.GAME_CONTROLLER_TAG).GetComponent<GameController>();
+		customerSpawnner = GameObject.FindGameObjectWithTag(Constants.CUSTOMER_SPAWNER_TAG).GetComponent<CustomerSpawnner>();
+		deafaultScale = TimeLeft.transform.localScale.x;
 	}
 	
 	// Update is called once per frame
@@ -29,16 +37,21 @@ public class CustomerTableController : MonoBehaviour {
 	void WaitForFood()
 	{
 		if(delivered == true){
+			customerSpawnner.SpawnCustomerAt(tableIndex);
 			Destroy(gameObject);
 			return;
 		}
 		WaitTime -= (Time.deltaTime * burnrate);
+		//Update the Progressbar
+		float newScale = (WaitTime/StartTime) * deafaultScale;
+		TimeLeft.transform.localScale = new Vector3(newScale,TimeLeft.transform.localScale.y,TimeLeft.transform.localScale.y);
 		if(WaitTime <= 0){
 			GameObject[] Players =  GameObject.FindGameObjectsWithTag(Constants.PLAYER_TAG);
 			foreach (var player in Players)
 			{
 				player.GetComponent<PlayerController>().PlayerScore += Constants.PENALTY_POINTS;
 			}
+			customerSpawnner.SpawnCustomerAt(tableIndex);
 			Destroy(gameObject);
 		}
 	}
