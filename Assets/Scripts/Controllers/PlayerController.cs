@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour {
 			GameObject vegClone = Instantiate(other.gameObject,transform.position,Quaternion.identity);
 			Basket.Add(vegClone);
 			vegClone.transform.parent = transform;
+			vegClone.tag = "Untagged";
 			Vector3 currentPose = vegClone.transform.position ;
 			currentPose.x += Basket.Count ; 
 			vegClone.transform.position = currentPose;
@@ -96,9 +97,12 @@ public class PlayerController : MonoBehaviour {
 			//collect combination from chopbord
 			foreach (var item in chopcontroller.Container)
 			{
+
 				Container.Add(item);
-				chopcontroller.Container.Remove(item);
+				item.transform.parent = gameObject.transform;
 			}
+				chopcontroller.Container.Clear();
+
 			
 		}
 		if(other.gameObject.tag.Equals(Constants.EXTRA_PLATE_TAG)){
@@ -137,6 +141,7 @@ public class PlayerController : MonoBehaviour {
 			}
 			if(chopcontroller.Container.Count < chopcontroller.Container.Capacity){
 				chopcontroller.Container.Add(veg);
+				veg.transform.parent = chopcontroller.gameObject.transform;
 				Basket.Remove(veg);
 				//disable movemnt for 2 secs
 				StartCoroutine(DisableMovement(Constants.CHOPTIME));
