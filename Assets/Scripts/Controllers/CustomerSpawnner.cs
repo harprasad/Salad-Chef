@@ -36,7 +36,7 @@ public class CustomerSpawnner : MonoBehaviour {
 				 randomVeg = Random.Range(0,VegNames.Length);
 			}
 			while(customerTable.RequestedCombination.Contains(VegNames[randomVeg]));
-			customerTable.RequestedCombination.Add(VegNames[randomVeg]);
+			customerTable.RequestedCombination.Add(VegNames[randomVeg]+"(Clone)");
 			GameObject vegetableSprite = Instantiate(VegSprites[randomVeg],Vector3.zero,Quaternion.identity);
 			vegetableSprite.transform.parent = customer.transform;
 			vegetableSprite.transform.position = customerTable.spawnPoints[j].transform.position; 

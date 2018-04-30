@@ -127,11 +127,10 @@ public class PlayerController : MonoBehaviour {
 	///<param name="other">The other Collider2D involved in this collision.</param>
 	void Drop(Collider2D other)
 	{
-		if(Basket.Count == 0){
+		if(Basket.Count == 0 && Container.Count == 0){
 			//Nothing to drop return
 			return;
-		}
-		GameObject veg = Basket[Basket.Count-1];
+		};
 		//else check the colliding object
 		if(other.gameObject.tag.Equals(Constants.CHOPBOARD_TAG)){
 			//remove from basket and add to chopboard
@@ -140,6 +139,10 @@ public class PlayerController : MonoBehaviour {
 				return;
 			}
 			if(chopcontroller.Container.Count < chopcontroller.Container.Capacity){
+				if(Basket.Count == 0){
+					return;
+				}
+				GameObject veg  = Basket[Basket.Count-1];
 				chopcontroller.Container.Add(veg);
 				veg.transform.parent = chopcontroller.gameObject.transform;
 				Basket.Remove(veg);
@@ -156,6 +159,7 @@ public class PlayerController : MonoBehaviour {
 				return;
 			}
 			//drop the last element on plate
+			GameObject veg  = Basket[Basket.Count-1];
 			Basket.Remove(veg);
 			extraPlate.Container.Add(veg);
 		}else if(other.gameObject.tag.Equals(Constants.CUSTOMER_TABLE)){
@@ -168,9 +172,14 @@ public class PlayerController : MonoBehaviour {
 			foreach (var item in Container)
 			{
 				customerTableController.Container.Add(item);
+				item.transform.parent = customerTableController.gameObject.transform;
 			}
+			Container.Clear();
 			//get feedback for delivery
-			customerTableController.FeedBack(PlayerID);
+
+			int Feedbackscore = customerTableController.FeedBack(PlayerID);
+			PlayerScore += Feedbackscore;
+			Debug.Log("player no " + PlayerID + " got "+ Feedbackscore);
 		}
 
 	}
