@@ -150,8 +150,13 @@ public class PlayerController : MonoBehaviour {
 				StartCoroutine(DisableMovement(Constants.CHOPTIME));
 			}
 		}else if(other.gameObject.tag.Equals(Constants.TRASH_TAG)){
+				foreach (var item in Container)
+				{
+					Destroy(item);
+				}
 				Container.Clear();
-				//TODO Minus point
+				//Penalty points
+				PlayerScore += Constants.PENALTY_POINTS;
 		}else if(other.gameObject.tag.Equals(Constants.EXTRA_PLATE_TAG)){
 			ExtraPlateController extraPlate =  other.gameObject.GetComponent<ExtraPlateController>();
 			if(extraPlate.PLateID != PlayerID || extraPlate.Container.Count == Constants.MAX_VEG_ON_PLATE){
