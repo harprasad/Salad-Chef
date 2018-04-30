@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 	public delegate void GameEvent();
 	public static event GameEvent OnGameOver;
 	GameObject[] PickupPoints;
 	public GameObject[] PowerUps;
-	GameObject[] Players;
+	public GameObject[] Players;
+	public GameObject WinningMessage;
+	public Text WiningText;
+	
 	// Use this for initialization
 	void Start () {
 		PickupPoints = GameObject.FindGameObjectsWithTag(Constants.PICKUP_SPAWN_POINT_TAGS);
-		Players = GameObject.FindGameObjectsWithTag(Constants.PLAYER_TAG);
 	}
 	
 	// Update is called once per frame
@@ -43,8 +47,27 @@ public class GameController : MonoBehaviour {
 			}
 		}
 		//if code reaches here only if none of the players have positive times
+		int P1Score = Players[0].GetComponent<PlayerController>().PlayerScore;
+		int P2Score = Players[1].GetComponent<PlayerController>().PlayerScore;
+
+		WinningMessage.SetActive(true);
+		if(P1Score > P2Score){
+			WiningText.text = "Player 1 Won";
+		}else if(P2Score  > P1Score){
+			WiningText.text = "Player 2 Won";
+		}else{
+			WiningText.text = "Match Draw";
+		}
+
 		if(OnGameOver != null){
 			OnGameOver();
 		}
+
+
+	}
+
+	public void OnReloadClick()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }

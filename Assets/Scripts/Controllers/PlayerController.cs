@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour {
 	/// </summary>
 	void MovePlayer()
 	{
+		if(!canMove){
+			return;
+		}
 		transform.rotation = Quaternion.Euler(0,0,0);
 		//Move Player depending on the key pressed
 		if(Input.GetKey(UpKey)){
