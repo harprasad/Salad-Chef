@@ -20,7 +20,7 @@ public static class Constants  {
 	public const int BASKET_SIZE  = 2;
 	public const int MAX_VEGTABLES_ON_BOARD = 3;
 
-	public const float WAIT_TIME_PER_VEG = 8;
+	public const float WAIT_TIME_PER_VEG = 60;
 	public const int GOOD_PERCENT = 70;
 	public const int MAX_VEG_ON_PLATE = 1;
 	public const int PENALTY_POINTS = -20;

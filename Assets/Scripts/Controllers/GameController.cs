@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour {
 		int PoerupIndex = Random.Range(0,PowerUps.Length);
 		GameObject powerUp = Instantiate(PowerUps[PoerupIndex],RandomSpawnPoint,Quaternion.identity);
 		powerUp.GetComponent<PowerUp>().PalyerID = forPlayer;
+		//Destroy the powerup after 6 seconds
+		Destroy(powerUp,6);
 	}
 
 

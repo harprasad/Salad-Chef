@@ -112,10 +112,10 @@ public class PlayerController : MonoBehaviour {
 				return;
 			}
 			//Or elese remove from plate and add to my basket
-			GameObject vegetable = extraPlate.Container[extraPlate.Container.Count];
+			GameObject vegetable = extraPlate.Container[extraPlate.Container.Count-1];
 			extraPlate.Container.Remove(vegetable);
 			Basket.Add(vegetable);
-
+			vegetable.transform.parent = transform;
 		}
 
 	}
@@ -162,6 +162,7 @@ public class PlayerController : MonoBehaviour {
 			GameObject veg  = Basket[Basket.Count-1];
 			Basket.Remove(veg);
 			extraPlate.Container.Add(veg);
+			veg.transform.parent = extraPlate.transform;
 		}else if(other.gameObject.tag.Equals(Constants.CUSTOMER_TABLE)){
 			//if my container is emplty return must pick up combination first 
 			if(Container.Count == 0){
@@ -217,6 +218,8 @@ public class PlayerController : MonoBehaviour {
 			PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
 			if(powerup.PalyerID == PlayerID){
 				ConsumePowerUp( powerup);
+				//Delete powerup
+				Destroy(other.gameObject);
 			}
 		}	
 	}

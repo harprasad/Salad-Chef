@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour {
-	GameObject[] Players;
-	PlayerController[] Playercontrollers;
+	
+	public PlayerController[] Playercontrollers;
 	public Text PlayerOneScore;
 	public Text PlayerOneTime;
 	public Text PlayerTwoScore;
@@ -13,11 +13,7 @@ public class HUDController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Players = GameObject.FindGameObjectsWithTag(Constants.PLAYER_TAG);
-		Playercontrollers = new PlayerController[Players.Length];
-		for(int i = 0; i < Players.Length ;i++){
-			Playercontrollers[i] = Players[i].GetComponent<PlayerController>();
-		}
+
 	}
 	
 	// Update is called once per frame
