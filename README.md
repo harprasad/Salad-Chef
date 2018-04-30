@@ -23,7 +23,7 @@ Most of the codes can be found inside **Scripts/Controllers** Folder. Games Cons
 
 Most of the collisions are handled using Triggers and Tags. All the definations of the tags can be found in constants.cs
 
-##TODO##
+## TODO ##
 * Adjustment of Colliders. 
 * Position change after picking from plate
 * Display timer when player can't move
